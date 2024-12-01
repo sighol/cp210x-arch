@@ -13,13 +13,16 @@ $ make
 
 # Install driver
 $ sudo cp cp210x.ko /lib/modules/$(uname -r)/kernel/drivers/usb/serial
-$ sudo insmod cp210x.ko
+$ sudo modprobe cp210x
 ```
 
 ### List of modifications
 
 * Updated Makefile to reference `/usr/lib/src` as the kernel source directory
-* Updated cp210x.c, changing the return type of `cp210x_port_remove` from int to void.
+* Updated cp210x.c
+  * Changing the return type of `cp210x_port_remove` from int to void.
+  * Changing the return type of `cp210x_break_ctl` from void to int.
+  * Changing the function signature of `cp210x_set_termios` and set last argument to const.
 
 As of [Linux commit c5d1448](https://github.com/torvalds/linux/commit/c5d1448fa353242635fa3e1fed6ab4558e0e7d9a#diff-21953fff57a63a3429b3af54ea4d68ab6fa7591ea51286c9909730cca91dcb04),
 `struct usb_serial_driver` in `<linux/usb/serial.h>` expects the callback for the remove event to have a void return type.
