@@ -1845,7 +1845,7 @@ static int cp210x_break_ctl(struct tty_struct *tty, int break_state)
 		state == BREAK_OFF ? "off" : "on");
 	cp210x_write_u16_reg(port, CP210X_SET_BREAK, state);
 
-	return 0;
+	return state;
 }
 
 #ifdef CONFIG_GPIOLIB
